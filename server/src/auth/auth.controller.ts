@@ -17,10 +17,4 @@ export class AuthController {
   login(@Body() loginData: LoginDto) {
     return this.authService.login(loginData);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('/users')
-  async getUsers() {
-    return this.authService.getUsers();
-  }
 }

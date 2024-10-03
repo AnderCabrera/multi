@@ -70,8 +70,4 @@ export class AuthService {
       console.error(e);
     }
   }
-
-  async getUsers() {
-    return await this.prismaService.user.findMany();
-  }
 }
