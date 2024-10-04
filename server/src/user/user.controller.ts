@@ -16,12 +16,13 @@ import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
 import { User as UserModel } from '@prisma/client';
 
 @Roles(Role.ADMIN)
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(RolesGuard)
+@UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Roles(Role.MINI_ADMIN)
+  @Roles(Role.MINI_ADMIN, Role.ADMIN)
   @Get()
   async getAllUsers(): Promise<UserModel[]> {
     return await this.userService.getAllUsers();
