@@ -5,27 +5,27 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/enums/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles/roles.guard';
+import { User as UserModel } from '@prisma/client';
 
 @Roles(Role.ADMIN)
-@UseGuards(RolesGuard)
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   
   @Roles(Role.MINI_ADMIN)
   @Get()
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserModel[]> {
     return await this.userService.getAllUsers();
   }
 
   @Put('/:id')
-  async updateUser(@Param('id') id: number, @Body() userObject: UpdateUserDto) {
+  async updateUser(@Param('id') id: number, @Body() userObject: UpdateUserDto): Promise<UserModel> {
     return await this.userService.updateUser(id, userObject);
   }
 
   @Delete('/:id')
-  async deleteUser(@Param('id') id: number) {
+  async deleteUser(@Param('id') id: number): Promise<UserModel> {
     return await this.userService.deleteUser(id);
   }
 }

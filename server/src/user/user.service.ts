@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { User as UserModel } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { hash } from 'bcrypt';
 
@@ -7,7 +8,7 @@ import { hash } from 'bcrypt';
 export class UserService {
   constructor(private readonly prismaService: PrismaService) { }
 
-  async getAllUsers() {
+  async getAllUsers(): Promise<UserModel[]> {
     try {
       return await this.prismaService.user.findMany();
     } catch (error) {
@@ -15,7 +16,7 @@ export class UserService {
     }
   }
 
-  async updateUser(id: number, { name, lastname, password }: UpdateUserDto) {
+  async updateUser(id: number, { name, lastname, password }: UpdateUserDto): Promise<UserModel> {
     try {
       let hashed = await hash(password, 10);
 
@@ -34,7 +35,7 @@ export class UserService {
     }
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: number): Promise<UserModel> {
     try {
       return await this.prismaService.user.delete({
         where: {

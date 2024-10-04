@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import 'dotenv/config';
 import { AuthService } from './auth.service';
+import 'dotenv/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -18,18 +18,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const { id } = payload;
 
     const user = this.authService.validateUser({ id });
-    
-    user.then((res) => {
-      console.log({
-        message: 'User found',
-        user: res
-      });
-    });
 
     if (!user) {
       throw new HttpException('USER_NOT_FOUND', 404);
     }
-
 
     return user;
   }
