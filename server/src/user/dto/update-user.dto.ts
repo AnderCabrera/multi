@@ -1,4 +1,5 @@
-import { IsString } from "class-validator";
+import { IsString } from 'class-validator';
+import { Role } from 'src/auth/enums/role.enum';
 
 export class UpdateUserDto {
   @IsString()
@@ -6,6 +7,9 @@ export class UpdateUserDto {
 
   @IsString()
   lastname: string;
+
+  @IsString()
+  role: Role;
 
   @IsString()
   password: string;

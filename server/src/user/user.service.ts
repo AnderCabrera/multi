@@ -6,7 +6,7 @@ import { hash } from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   async getAllUsers(): Promise<UserModel[]> {
     try {
@@ -16,7 +16,10 @@ export class UserService {
     }
   }
 
-  async updateUser(id: number, { name, lastname, password }: UpdateUserDto): Promise<UserModel> {
+  async updateUser(
+    id: number,
+    { name, lastname, role, password }: UpdateUserDto,
+  ): Promise<UserModel> {
     try {
       let hashed = await hash(password, 10);
 
@@ -27,6 +30,7 @@ export class UserService {
         data: {
           name,
           lastname,
+          role,
           password: hashed,
         },
       });

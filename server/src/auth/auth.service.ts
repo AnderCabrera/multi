@@ -10,7 +10,7 @@ export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
-  ) { }
+  ) {}
 
   async register(userObject: RegisterDto) {
     try {
@@ -25,7 +25,7 @@ export class AuthService {
           lastname: userObject.lastname,
           username: userObject.username,
           password: userObject.password,
-          role: userObject.role
+          role: userObject.role,
         },
       });
     } catch (e) {
@@ -56,15 +56,15 @@ export class AuthService {
         name: user.name,
         lastname: user.lastname,
         username: user.username,
-        role: user.role
-      }
+        role: user.role,
+      };
 
       const token = this.jwtService.sign(payload);
 
       const data = {
         user,
-        token
-      }
+        token,
+      };
 
       return data;
     } catch (e) {
@@ -80,7 +80,7 @@ export class AuthService {
       select: {
         id: true,
         role: true,
-      }
+      },
     });
   }
 }

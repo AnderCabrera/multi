@@ -1,5 +1,11 @@
-import { IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
-import { Role } from "../enums/role.enum";
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
+import { Role } from '../enums/role.enum';
 
 export class RegisterDto {
   @IsString()

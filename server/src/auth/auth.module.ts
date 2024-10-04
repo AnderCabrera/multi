@@ -10,10 +10,10 @@ import 'dotenv/config';
   imports: [
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' }
-    })
+      signOptions: { expiresIn: '1h' },
+    }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService, JwtStrategy]
+  providers: [AuthService, PrismaService, JwtStrategy],
 })
-export class AuthModule { }
+export class AuthModule {}
