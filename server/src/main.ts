@@ -12,17 +12,12 @@ const prisma = new PrismaService();
 
 async function initialData() {
   try {
-      await prisma.role.create({
-        data: {
-          name: 'ADMIN',
-        }
-      })
-
+    return await prisma.user.findMany()
   } catch (e) {
     console.error(e);
   }
 }
 
-// initialData()
+// initialData().then((data) => console.log(data));
 
 bootstrap();

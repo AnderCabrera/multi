@@ -25,7 +25,7 @@ export class AuthService {
           lastname: userObject.lastname,
           username: userObject.username,
           password: userObject.password,
-          roleId: Number(userObject.roleId),
+          role: userObject.role
         },
       });
     } catch (e) {
@@ -52,10 +52,11 @@ export class AuthService {
       }
 
       const payload = {
+        id: user.id,
         name: user.name,
         lastname: user.lastname,
         username: user.username,
-        roleId: user.roleId
+        role: user.role
       }
 
       const token = this.jwtService.sign(payload);
@@ -69,5 +70,17 @@ export class AuthService {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  async validateUser(payload: { id: number }) {
+    return await this.prismaService.user.findUnique({
+      where: {
+        id: payload.id,
+      },
+      select: {
+        id: true,
+        role: true,
+      }
+    });
   }
 }
