@@ -2,6 +2,7 @@
 
 import { register } from "@/app/services/auth.service";
 import { useState } from "react";
+import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -128,12 +129,13 @@ export default function RegisterPage() {
               className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-          <button
+          <Button
             type="submit"
+            variant="contained"
             className="w-full py-2 bg-indigo-700 text-white rounded-md hover:bg-indigo-600 transition duration-300"
           >
             Register
-          </button>
+          </Button>
         </form>
         {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
         <p className="mt-4 text-center text-gray-400">
