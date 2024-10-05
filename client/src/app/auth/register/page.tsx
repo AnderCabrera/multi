@@ -27,11 +27,22 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (formData.username.length < 4) {
+      setError("Username must be at least 4 characters long.");
+      return;
+    }
+
+    if (formData.password.length < 4) {
+      setError("Password must be at least 4 characters long.");
+      return;
+    }
+
     const response = await register(formData);
 
     if (response.error) {
       setError(response.error);
     } else {
+      setError("");
       if (response.status === 201) {
         swal.fire({
           text: "You have successfully registered.",
@@ -39,19 +50,13 @@ export default function RegisterPage() {
           timer: 2000,
           showConfirmButton: false,
         });
-      } else if (formData.username.length < 4) {
-        swal.fire({
-          text: "Username must be at least 4 characters long.",
-          icon: "error",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-      } else if (formData.password.length < 4) {
-        swal.fire({
-          text: "Password must be at least 4 characters long.",
-          icon: "error",
-          timer: 2000,
-          showConfirmButton: false,
+
+        setFormData({
+          name: "",
+          lastname: "",
+          username: "",
+          password: "",
+          role: "ADMIN",
         });
       } else if (response.status === 400) {
         swal.fire({
