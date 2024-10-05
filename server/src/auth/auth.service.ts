@@ -14,6 +14,16 @@ export class AuthService {
 
   async register(userObject: RegisterDto) {
     try {
+      const existingUser = await this.prismaService.user.findUnique({
+        where: {
+          username: userObject.username,
+        },
+      });
+
+      if (existingUser) {
+        return new HttpException('USER_ALREADY_EXISTS', HttpStatus.BAD_REQUEST);
+      }
+
       const { password } = userObject;
       const hashed = await hash(password, 10);
 
@@ -28,6 +38,8 @@ export class AuthService {
           role: userObject.role,
         },
       });
+
+      return new HttpException('USER_CREATED', HttpStatus.CREATED);
     } catch (e) {
       console.error(e);
     }
@@ -42,13 +54,13 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+        return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
       }
 
       const valid = await compare(password, user.password);
 
       if (!valid) {
-        throw new HttpException('INVALID_PASSWORD', HttpStatus.UNAUTHORIZED);
+        return new HttpException('INVALID_PASSWORD', HttpStatus.UNAUTHORIZED);
       }
 
       const payload = {
