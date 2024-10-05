@@ -20,12 +20,17 @@ export default function LoginPage() {
       if (response.status === 400 || response.status === 401) {
         setError("Invalid username or password");
       } else {
+        setError("");
+        
         swal.fire({
           text: "You have successfully logged in.",
           icon: "success",
           timer: 2000,
           showConfirmButton: false,
         });
+
+        setUsername("");
+        setPassword("");
       }
     } catch (e) {
       setError("Invalid username or password");
