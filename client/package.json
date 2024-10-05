@@ -13,9 +13,12 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.2",
+    "@sweetalert2/theme-dark": "^5.0.18",
     "next": "14.2.14",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sweetalert2": "^11.6.13",
+    "sweetalert2-react-content": "^5.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
