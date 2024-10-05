@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { User as UserModel } from '@prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { hash } from 'bcrypt';
+import { RegisterDto } from 'src/auth/dto/register.dto';
 
 @Injectable()
 export class UserService {
@@ -16,14 +17,55 @@ export class UserService {
     }
   }
 
+  async createUser(userObject: RegisterDto): Promise<HttpException> {
+    try {
+      const existingUser = await this.prismaService.user.findUnique({
+        where: {
+          username: userObject.username,
+        },
+      });
+
+      if (existingUser) {
+        return new HttpException('USER_ALREADY_EXISTS', HttpStatus.BAD_REQUEST);
+      }
+
+      const { password } = userObject;
+      const hashed = await hash(password, 10);
+
+      userObject = { ...userObject, password: hashed };
+
+      await this.prismaService.user.create({
+        data: {
+          name: userObject.name,
+          lastname: userObject.lastname,
+          username: userObject.username,
+          password: userObject.password,
+          role: userObject.role,
+        },
+      });
+
+      return new HttpException('USER_CREATED', HttpStatus.CREATED);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   async updateUser(
     id: number,
     { name, lastname, role, password }: UpdateUserDto,
-  ): Promise<UserModel> {
+  ): Promise<HttpException> {
     try {
-      let hashed = await hash(password, 10);
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          id: Number(id),
+        },
+      });
 
-      return await this.prismaService.user.update({
+      if (!user) {
+        return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+      }
+
+      await this.prismaService.user.update({
         where: {
           id: Number(id),
         },
@@ -31,21 +73,35 @@ export class UserService {
           name,
           lastname,
           role,
-          password: hashed,
+          password,
         },
       });
+
+      return new HttpException('USER_UPDATED', HttpStatus.OK);
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async deleteUser(id: number): Promise<UserModel> {
+  async deleteUser(id: number): Promise<HttpException> {
     try {
-      return await this.prismaService.user.delete({
+      const user = await this.prismaService.user.findUnique({
         where: {
           id: Number(id),
         },
       });
+
+      if (!user) {
+        return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+      }
+
+      await this.prismaService.user.delete({
+        where: {
+          id: Number(id),
+        },
+      });
+
+      return new HttpException('USER_DELETED', HttpStatus.OK);
     } catch (error) {
       throw new Error(error);
     }
