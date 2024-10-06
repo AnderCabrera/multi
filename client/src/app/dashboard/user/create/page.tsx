@@ -53,7 +53,6 @@ export default function CreateUserPage() {
 
     const response = await createUser(formData);
 
-    console.log(response);
     if (response.error) {
       setError(response.error);
     } else {
