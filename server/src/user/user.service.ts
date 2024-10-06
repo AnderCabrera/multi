@@ -83,6 +83,16 @@ export class UserService {
         return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
       }
 
+      const existingUser = await this.prismaService.user.findUnique({
+        where: {
+          username,
+        },
+      });
+
+      if (existingUser) {
+        return new HttpException('USER_ALREADY_EXISTS', HttpStatus.BAD_REQUEST);
+      }
+
       const hashed = await hash(password, 10);
 
       await this.prismaService.user.update({
