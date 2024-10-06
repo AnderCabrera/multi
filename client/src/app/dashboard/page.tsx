@@ -101,6 +101,18 @@ export default function DashboardPage() {
   };
 
   const handleDeleteUser = async (id: number) => {
+    const userId = localStorage.getItem("userId");
+
+    if (Number(userId) === id) {
+      swal.fire({
+        text: "You can't delete yourself.",
+        icon: "error",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     await deleteUser(id)
       .then((response) => {
         if (response.status === 200) {

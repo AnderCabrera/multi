@@ -52,6 +52,7 @@ export default function LoginPage() {
           })
           .then(() => {
             localStorage.setItem("token", response.token);
+            localStorage.setItem("userId", response.user.id);
             setUsername("");
             setPassword("");
             router.push("/dashboard");
