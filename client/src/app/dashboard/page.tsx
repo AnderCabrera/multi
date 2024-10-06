@@ -1,6 +1,10 @@
 "use client";
 
-import { getAllUsers, deleteUser } from "@/app/services/user.service";
+import {
+  getAllUsers,
+  deleteUser,
+  getUserById,
+} from "@/app/services/user.service";
 import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -14,6 +18,7 @@ import { Button } from "@mui/material";
 import { User } from "../types/user";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import UpdateModal from "../components/UpdateModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,6 +44,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function DashboardPage() {
   const [users, setUsers] = useState<User[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const swal = withReactContent(Swal);
 
   const fetchUsers = async () => {
@@ -55,29 +62,53 @@ export default function DashboardPage() {
     fetchUsers();
   }, []);
 
+  const handleUpdateUser = async (id: number) => {
+    await getUserById(id)
+      .then((response) => {
+        if (response.error) {
+          console.log(response.error);
+        } else {
+          setUser(response);
+          setShowModal(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onCloseModal = () => {
+    setShowModal(false);
+  }
+
+  const onUpdateUser = async () => {
+    fetchUsers();
+    onCloseModal();
+  }
+
   const handleDeleteUser = async (id: number) => {
     await deleteUser(id)
-    .then((response) => {
-      if (response.status === 200) {
-        swal.fire({
-          text: "User deleted successfully.",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-        fetchUsers();
-      } else if (response.statusCode === 403) {
-        swal.fire({
-          text: "You don't have permission to perform this action.",
-          icon: "error",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        if (response.status === 200) {
+          swal.fire({
+            text: "User deleted successfully.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+          fetchUsers();
+        } else if (response.statusCode === 403) {
+          swal.fire({
+            text: "You don't have permission to perform this action.",
+            icon: "error",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -115,16 +146,16 @@ export default function DashboardPage() {
                       <Button
                         variant="contained"
                         color="error"
-                        onClick={() => handleDeleteUser(user.id)}
+                        onClick={() =>
+                          user.id !== undefined && handleDeleteUser(user.id)
+                        }
                       >
                         <i className="fa-solid fa-trash"></i>
                       </Button>
                       <Button
                         variant="contained"
                         color="info"
-                        onClick={() =>
-                          console.log("edit user with id: " + user.id)
-                        }
+                        onClick={() => handleUpdateUser(user.id)}
                       >
                         <i className="fa-solid fa-pen-to-square"></i>
                       </Button>
@@ -136,6 +167,7 @@ export default function DashboardPage() {
           </TableContainer>
         </div>
       </div>
+      {showModal && <UpdateModal user={user} onClose={onCloseModal} onUpdate={onUpdateUser} open={showModal} />}
     </div>
   );
 }
