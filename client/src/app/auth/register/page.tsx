@@ -2,7 +2,7 @@
 
 import { register } from "@/app/services/auth.service";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -77,58 +77,77 @@ export default function RegisterPage() {
           Register
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Name"
-              className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Lastname
-            </label>
-            <input
-              type="text"
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleChange}
-              placeholder="Lastname"
-              className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Username"
-              className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-          <div>
-            <label className="block mb-2 text-sm font-medium text-gray-300">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+          <TextField
+            label="Name"
+            name="name"
+            variant="outlined"
+            fullWidth
+            value={formData.name}
+            onChange={handleChange}
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && !formData.name.length)}
+          />
+          <TextField
+            label="Lastname"
+            name="lastname"
+            variant="outlined"
+            fullWidth
+            value={formData.lastname}
+            onChange={handleChange}
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && !formData.lastname.length)}
+          />
+          <TextField
+            label="Username"
+            name="username"
+            variant="outlined"
+            fullWidth
+            value={formData.username}
+            onChange={handleChange}
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && formData.username.length < 4)}
+            helperText={
+              error && formData.username.length < 4
+                ? "Username must be at least 4 characters long."
+                : ""
+            }
+          />
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            value={formData.password}
+            onChange={handleChange}
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && formData.password.length < 4)}
+            helperText={
+              error && formData.password.length < 4
+                ? "Password must be at least 4 characters long."
+                : ""
+            }
+          />
           <Button
             type="submit"
             variant="contained"

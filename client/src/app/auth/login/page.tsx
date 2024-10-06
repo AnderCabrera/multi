@@ -2,7 +2,7 @@
 
 import { login } from "@/app/services/auth.service";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
@@ -57,19 +57,36 @@ export default function LoginPage() {
           Login
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && !username.length)}
+            helperText={error && !username.length ? "Username is required" : ""}
           />
-          <input
+          <TextField
+            label="Password"
+            variant="outlined"
             type="password"
+            fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            InputProps={{
+              style: { backgroundColor: "#374151", color: "#D1D5DB" },
+            }}
+            InputLabelProps={{
+              style: { color: "#D1D5DB" },
+            }}
+            error={Boolean(error && !password.length)}
+            helperText={error && !password.length ? "Password is required" : ""}
           />
           <Button
             type="submit"
