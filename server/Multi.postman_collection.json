@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "8fd3beb8-03d9-47c4-8b74-f38af5f5e299",
+		"name": "Multi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13659864"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "guest",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "guest",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "guest",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "ADMIN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"guest\",\n    \"password\": \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsIm5hbWUiOiJhbmRlciIsImxhc3RuYW1lIjoiYSIsInVzZXJuYW1lIjoiYWNhYnJlcmExIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzI4MTg5MDgwLCJleHAiOjE3MjgxOTI2ODB9.xJGtEcaYWNVDp77x-IMGDxIWxpNsGswinfrM26GwFIw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFuZGVyIiwibGFzdG5hbWUiOiJDYWJyZXJhIiwidXNlcm5hbWUiOiJhY2FicmVyYSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyODEwNzIwMCwiZXhwIjoxNzI4MTEwODAwfQ.COf0kuExnbq47rjyUBwBJ0b-QOtA9tsw-FdgdOV1m08",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "unknow",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "unknow",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "unknow",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "unknow",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "USER",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsIm5hbWUiOiJhbmRlciIsImxhc3RuYW1lIjoiYSIsInVzZXJuYW1lIjoiYWNhYnJlcmExIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzI4MTg5MDgwLCJleHAiOjE3MjgxOTI2ODB9.xJGtEcaYWNVDp77x-IMGDxIWxpNsGswinfrM26GwFIw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "USER",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/user/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFuZGVyIiwibGFzdG5hbWUiOiJDYWJyZXJhIiwidXNlcm5hbWUiOiJhY2FicmVyYSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyODE5MTk3MSwiZXhwIjoxNzI4MTk1NTcxfQ.H2Kh8WVDz3qglQJzeeUI2d3S3g3HAGoznhtuQkjeyy4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSingleUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFuZGVyIiwibGFzdG5hbWUiOiJDYWJyZXJhIiwidXNlcm5hbWUiOiJhY2FicmVyYSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyODE5MTk3MSwiZXhwIjoxNzI4MTk1NTcxfQ.H2Kh8WVDz3qglQJzeeUI2d3S3g3HAGoznhtuQkjeyy4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.collectionVariables.set(\"jwt\", \"\");",
+					"pm.collectionVariables.set(\"base_url\", \"http://localhost:3000\");"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "jwt",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkFuZGVyIiwibGFzdG5hbWUiOiJDYWJyZXJhIiwidXNlcm5hbWUiOiJhY2FicmVyYSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTcyODAxMTE0MiwiZXhwIjoxNzI4MDE0NzQyfQ.1Pe2WISK9Li6b8W96bnMpiXzkMVbjAX23OyMhNpqbL0"
+		}
+	]
+}
