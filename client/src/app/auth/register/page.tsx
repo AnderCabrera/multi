@@ -1,10 +1,11 @@
 "use client";
 
 import { register } from "@/app/services/auth.service";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -17,6 +18,14 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
 
   const swal = withReactContent(Swal);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -45,20 +54,24 @@ export default function RegisterPage() {
     } else {
       setError("");
       if (response.status === 201) {
-        swal.fire({
-          text: "You have successfully registered.",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-        });
+        swal
+          .fire({
+            text: "You have successfully registered.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          })
+          .then(() => {
+            setFormData({
+              name: "",
+              lastname: "",
+              username: "",
+              password: "",
+              role: "ADMIN",
+            });
 
-        setFormData({
-          name: "",
-          lastname: "",
-          username: "",
-          password: "",
-          role: "ADMIN",
-        });
+            router.push("/auth/login");
+          });
       } else if (response.status === 400) {
         swal.fire({
           text: "Username already exists.",

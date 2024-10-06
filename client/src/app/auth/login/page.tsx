@@ -1,16 +1,25 @@
 "use client";
 
 import { login } from "@/app/services/auth.service";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const swal = withReactContent(Swal);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/dashboard");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,22 +37,26 @@ export default function LoginPage() {
     try {
       const response = await login(username, password);
 
-      if (response.status === 400 || response.status === 401) {
+      if (response.status === 404 || response.status === 401) {
         setError("Invalid username or password");
+        return;
       } else {
         setError("");
 
-        swal.fire({
-          text: "You have successfully logged in.",
-          icon: "success",
-          timer: 2000,
-          showConfirmButton: false,
-        });
-
-        localStorage.setItem("token", response.token);
-
-        setUsername("");
-        setPassword("");
+        swal
+          .fire({
+            text: "You have successfully logged in.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false,
+          })
+          .then(() => {
+            localStorage.setItem("token", response.token);
+            setUsername("");
+            setPassword("");
+            router.push("/dashboard");
+            window.location.reload();
+          });
       }
     } catch (e) {
       setError("Invalid username or password");
