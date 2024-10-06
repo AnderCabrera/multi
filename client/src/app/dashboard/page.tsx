@@ -4,7 +4,7 @@ import {
   getAllUsers,
   deleteUser,
   getUserById,
-} from "@/app/services/user.service";
+} from "@/services/user.service";
 import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -15,12 +15,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
-import { User } from "../types/user";
+import { User } from "../../types/user";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import UpdateModal from "../components/UpdateModal";
+import UpdateModal from "../../components/UpdateModal";
 import { useRouter } from "next/navigation";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

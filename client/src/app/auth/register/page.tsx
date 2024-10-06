@@ -1,6 +1,6 @@
 "use client";
 
-import { register } from "@/app/services/auth.service";
+import { register } from "@/services/auth.service";
 import { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
 import Swal from "sweetalert2";

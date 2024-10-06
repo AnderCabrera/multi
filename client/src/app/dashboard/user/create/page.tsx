@@ -1,12 +1,12 @@
 "use client";
-import { createUser } from "@/app/services/user.service";
+import { createUser } from "@/services/user.service";
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/components/Navbar";
 
 export default function CreateUserPage() {
   const [formData, setFormData] = useState({
