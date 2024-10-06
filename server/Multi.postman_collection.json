@@ -172,7 +172,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzcsIm5hbWUiOiJhbmRlciIsImxhc3RuYW1lIjoiYSIsInVzZXJuYW1lIjoiYWNhYnJlcmExIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzI4MTg5MDgwLCJleHAiOjE3MjgxOTI2ODB9.xJGtEcaYWNVDp77x-IMGDxIWxpNsGswinfrM26GwFIw",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImFkbWluIiwibGFzdG5hbWUiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjgyNTExNzksImV4cCI6MTcyODI1NDc3OX0.glgMhk8m8C1cdS221yExOwfjOLBIFgFYozB2aIHYB54",
 								"type": "text"
 							}
 						],
@@ -181,22 +181,22 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "TEST",
+									"value": "update",
 									"type": "text"
 								},
 								{
 									"key": "lastname",
-									"value": "TEST",
+									"value": "update",
 									"type": "text"
 								},
 								{
 									"key": "username",
-									"value": "TEST",
+									"value": "update",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "TEST",
+									"value": "1234",
 									"type": "text"
 								},
 								{
@@ -306,7 +306,7 @@
 				"packages": {},
 				"exec": [
 					"pm.collectionVariables.set(\"jwt\", \"\");",
-					"pm.collectionVariables.set(\"base_url\", \"http://localhost:3000\");"
+					"pm.collectionVariables.set(\"base_url\", \"http://localhost:5000\");"
 				]
 			}
 		}
@@ -314,7 +314,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:3000"
+			"value": "http://localhost:5000"
 		},
 		{
 			"key": "jwt",
