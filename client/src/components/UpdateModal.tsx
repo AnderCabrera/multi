@@ -70,6 +70,12 @@ export default function UpdateModal({
 
     if (user.id !== undefined) {
       const response = await updateUser(user.id, formData);
+      
+      if (response.status === 400) {
+        setError("Username already exists.");
+        return;
+      }
+
       if (response.error) {
         setError(response.error);
       } else {
