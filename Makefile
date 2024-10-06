@@ -8,7 +8,6 @@ up:
 	bash -c "cd $(SERVER_DIR) && npm install"
 	bash -c "cd $(SERVER_DIR) && npm run start:dev"
 
-
 dev:
 	bash -c "cd $(CLIENT_DIR) && npm install"
 	bash -c "cd $(CLIENT_DIR) && npm run dev"

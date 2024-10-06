@@ -10,6 +10,7 @@ Esta aplicación permite gestionar usuarios y sus permisos. Cada usuario puede t
 - [Rutas](#rutas)
 
 ## Tecnologías utilizadas
+- NextJS
 - NestJS
 - TypeScript
 - Prisma
