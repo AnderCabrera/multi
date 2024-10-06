@@ -31,6 +31,12 @@ export class UserController {
     return await this.userService.getAllUsers();
   }
 
+  @Roles(Role.MINI_ADMIN, Role.ADMIN, Role.USER)
+  @Get('/:id')
+  async getUserById(@Param('id') id: number): Promise<UserModel | HttpException> {
+    return await this.userService.getUserById(id);
+  }
+
   @Post()
   async createUser(
     @Body() userObject: RegisterDto,

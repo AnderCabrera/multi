@@ -17,6 +17,24 @@ export class UserService {
     }
   }
 
+  async getUserById(id: number): Promise<UserModel | HttpException> {
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          id: Number(id),
+        },
+      });
+
+      if (!user) {
+        return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
+      }
+
+      return user;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async createUser(userObject: RegisterDto): Promise<HttpException> {
     try {
       const existingUser = await this.prismaService.user.findUnique({
@@ -52,7 +70,7 @@ export class UserService {
 
   async updateUser(
     id: number,
-    { name, lastname, role, password }: UpdateUserDto,
+    { name, lastname, username, role, password }: UpdateUserDto,
   ): Promise<HttpException> {
     try {
       const user = await this.prismaService.user.findUnique({
@@ -65,6 +83,8 @@ export class UserService {
         return new HttpException('USER_NOT_FOUND', HttpStatus.NOT_FOUND);
       }
 
+      const hashed = await hash(password, 10);
+
       await this.prismaService.user.update({
         where: {
           id: Number(id),
@@ -72,8 +92,9 @@ export class UserService {
         data: {
           name,
           lastname,
+          username,
           role,
-          password,
+          password: hashed,
         },
       });
 
