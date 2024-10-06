@@ -1,7 +1,7 @@
 import { User } from "../types/user";
 
 export async function login(username: string, password: string) {
-  return await fetch("http://127.0.0.1:3000/auth/login", {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export async function login(username: string, password: string) {
 }
 
 export async function register(user: User) {
-  return await fetch("http://127.0.0.1:3000/auth/register", {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,9 +1,13 @@
 import { User } from "../types/user";
+import 'dotenv/config';
 
-const token = localStorage.getItem("token");
+let token: string | null = null;
+
+if (typeof window !== 'undefined') 
+  token = localStorage.getItem("token");
 
 export async function getAllUsers() {
-  return await fetch("http://127.0.0.1:3000/user", {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +17,7 @@ export async function getAllUsers() {
 }
 
 export async function getUserById(id: number) {
-  return await fetch(`http://127.0.0.1:3000/user/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +27,7 @@ export async function getUserById(id: number) {
 }
 
 export async function deleteUser(id: number) {
-  return await fetch(`http://127.0.0.1:3000/user/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +39,7 @@ export async function deleteUser(id: number) {
 }
 
 export async function createUser(user: User) {
-  return await fetch("http://127.0.0.1:3000/user", {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user`, { 
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +56,7 @@ export async function createUser(user: User) {
 }
 
 export async function updateUser(id: number, user: User) {
-  return await fetch(`http://127.0.0.1:3000/user/${id}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
