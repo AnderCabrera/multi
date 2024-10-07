@@ -9,6 +9,12 @@ Esta aplicación permite gestionar usuarios y sus permisos. Cada usuario puede t
   - [Frontend](#frontend)
 - [Rutas](#rutas)
 
+## Requisitos
+Requisitos para ejecutar el proyecto:
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Node.js](https://nodejs.org/en/download/)
+
 ## Tecnologías utilizadas
 - NextJS
 - NestJS
@@ -32,13 +38,22 @@ git clone https://github.com/AnderCabrera/multi
 ### Backend
 1. Puedes ejecutar el comando `make up` para arrancar el backend.
 
+> Nota: Para ejecutar el siguiente comando, debes contar con make instalado en tu máquina. En Windows, puedes instalar make con "[scoop](https://scoop.sh/) install make".
+
+Linux:
 ```bash
 sudo make up
+```
+
+Windows:
+```bash
+make up
 ```
 
 Si por alguna razón no funciona, puedes ejecutar los siguientes comandos:
 
 ```bash
+docker-compose up -d
 cd server
 npm install
 npm run start:dev
@@ -47,8 +62,14 @@ npm run start:dev
 ### Frontend
 1. Puedes ejecutar el comando `make dev` para arrancar el frontend.
 
+Linux:
 ```bash
 sudo make dev
+```
+
+Windows:
+```bash
+make dev
 ```
 
 Si por alguna razón no funciona, puedes ejecutar los siguientes comandos:
